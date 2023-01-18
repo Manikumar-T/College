@@ -16,9 +16,7 @@
     static String Decrypt(String c) {
         String p="";int temp,k=3;
         for(int i : c.toCharArray()) {
-            System.out.println("i-97 above:"+i);
             i=i-97;
-            System.out.println(i);
             temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
             p+=(char)temp;
         }
@@ -40,10 +38,8 @@
      //Decryption using Shift cipher
     static String Decrypt(String c,int k) {
         String p="";int temp;
-        for(int i : c.toCharArray()) {
-            System.out.println("i-97 above:"+i);
+        for(int i : c.toCharArray()) {  
             i=i-97;
-            System.out.println(i);
             temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
             p+=(char)temp;
         }
