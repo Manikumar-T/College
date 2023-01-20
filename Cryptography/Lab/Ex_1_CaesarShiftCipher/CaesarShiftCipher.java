@@ -7,7 +7,7 @@
         String c="";int temp,k=3;
         for(int i : p.toCharArray()) {
             i=i-97;
-            temp =((i+k)%26)+97;
+            temp =((i+k)%26)+65;
             c+=(char)temp;
         }
       
@@ -17,7 +17,7 @@
     static String Decrypt(String c) {
         String p="";int temp,k=3;
         for(int i : c.toCharArray()) {
-            i=i-97;
+            i=i-65;
             temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
             p+=(char)temp;
         }
@@ -32,7 +32,7 @@
         String c="";int temp;
         for(int i : p.toCharArray()) {
             i=i-97;
-            temp =((i+k)%26)+97;
+            temp =((i+k)%26)+65;
             c+=(char)temp;
         }
         
@@ -42,7 +42,7 @@
     static String Decrypt(String c,int k) {
         String p="";int temp;
         for(int i : c.toCharArray()) {  
-            i=i-97;
+            i=i-65;
             temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
             p+=(char)temp;
         }
@@ -100,7 +100,7 @@
                                     String ptext = sc.next();
                                     System.out.println("Enter the key:");
                                     int k1 = sc.nextInt();
-                                    System.out.println("Cipher text:"+ShiftCipher.Encrypt(ptext,k1));
+                                    System.out.println("Cipher text:"+((k1>=0 && k1<=25)?ShiftCipher.Encrypt(ptext,k1):"Encryption not possible  in this key"));
                                     
                                     break;
                                 case 2:
@@ -108,7 +108,7 @@
                                     String ctext = sc.next();
                                     System.out.println("Enter the key:");
                                     int k2 = sc.nextInt();
-                                    System.out.println("plain text:"+ShiftCipher.Decrypt(ctext,k2));
+                                    System.out.println("plain text:"+((k2>=0 && k2<=25)?ShiftCipher.Decrypt(ctext,k2):"Decryption not possible  this key"));
                                     
                                     break;
                                 default:
