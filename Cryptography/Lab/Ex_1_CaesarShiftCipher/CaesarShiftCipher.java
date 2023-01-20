@@ -100,7 +100,7 @@
                                     String ptext = sc.next();
                                     System.out.println("Enter the key:");
                                     int k1 = sc.nextInt();
-                                    System.out.println("Cipher text:"+((k1>=0 && k1<=25)?ShiftCipher.Encrypt(ptext,k1):"Encryption not possible  in this key"));
+                                    System.out.println("Cipher text:"+((k1>=0 && k1<=25)?ShiftCipher.Encrypt(ptext,k1):"Sorry, Key value exceeds the limit"));
                                     
                                     break;
                                 case 2:
@@ -108,7 +108,7 @@
                                     String ctext = sc.next();
                                     System.out.println("Enter the key:");
                                     int k2 = sc.nextInt();
-                                    System.out.println("plain text:"+((k2>=0 && k2<=25)?ShiftCipher.Decrypt(ctext,k2):"Decryption not possible  this key"));
+                                    System.out.println("plain text:"+((k2>=0 && k2<=25)?ShiftCipher.Decrypt(ctext,k2):"Sorry, Key value exceeds the limit"));
                                     
                                     break;
                                 default:
