@@ -1,5 +1,6 @@
  import java.util.*;
- class CaesarShiftCipher {
+
+ class CaesarCipher {
     //Encryption using caesar cipher
     static String Encrypt(String p) {
         p=p.toLowerCase();
@@ -23,8 +24,10 @@
         
         return p;
     }
-    //Encryption using shift cipher
-    static String Encrypt(String p,int k) {
+ }
+ class ShiftCipher {
+     //Encryption using shift cipher
+     static String Encrypt(String p,int k) {
         p=p.toLowerCase();
         String c="";int temp;
         for(int i : p.toCharArray()) {
@@ -46,6 +49,10 @@
         
         return p;
     }
+ }
+ class CaesarShiftCipher {
+    
+   
     public static void main(String args[]) {
         System.out.println("'"
         + "*******************************************************\n" +
@@ -72,11 +79,11 @@
                             switch (choice2) {
                                 case 1:
                                     System.out.println("Enter the plain text:");
-                                    System.out.println("Cipher text:"+Encrypt(sc.next()));
+                                    System.out.println("Cipher text:"+CaesarCipher.Encrypt(sc.next()));
                                     break;
                                 case 2:
                                     System.out.println("Enter the cipher text:");
-                                    System.out.println("plain text:"+Decrypt(sc.next()));
+                                    System.out.println("plain text:"+CaesarCipher.Decrypt(sc.next()));
                                     
                                     break;
                                 default:
@@ -93,7 +100,7 @@
                                     String ptext = sc.next();
                                     System.out.println("Enter the key:");
                                     int k1 = sc.nextInt();
-                                    System.out.println("Cipher text:"+Encrypt(ptext,k1));
+                                    System.out.println("Cipher text:"+ShiftCipher.Encrypt(ptext,k1));
                                     
                                     break;
                                 case 2:
@@ -101,7 +108,7 @@
                                     String ctext = sc.next();
                                     System.out.println("Enter the key:");
                                     int k2 = sc.nextInt();
-                                    System.out.println("plain text:"+Decrypt(ctext,k2));
+                                    System.out.println("plain text:"+ShiftCipher.Decrypt(ctext,k2));
                                     
                                     break;
                                 default:
