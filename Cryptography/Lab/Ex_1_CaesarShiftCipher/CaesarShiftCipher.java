@@ -41,7 +41,7 @@
      //Decryption using Shift cipher
     static String Decrypt(String c,int k) {
         String p="";int temp;
-        for(int i : c.toCharArray()) {  
+        for(int i : c.toUpperCase().toCharArray()) {  
             i=i-65;
             temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
             p+=(char)temp;
