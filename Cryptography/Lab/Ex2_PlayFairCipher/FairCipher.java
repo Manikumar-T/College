@@ -1,9 +1,22 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class FairCipher {
-    
+    //info banner
+    public static void printbanner() {
+        System.out.println("'"
+        + "*******************************************************\n" +
+"     IT1681 - Cryptography and  Networks Security Laboratory\n" +
+"\n" +
+"	Roll Number : 20UIT020\n" +
+"	Name        :T.MANIKUMAR\n" +
+"	Ex. No.	    : 02\n" +
+"	Ex. Name    : Implementation of Playfair Cipher	\n" +
+"	Date        : 3.02.2023\n" +
+"*******************************************************\n" +
+"\n" +
+"	------- ------- --------\n");
+    }
+    //function for Pre process the Given Text
     public static ArrayList<String> preProcessText(String msg) {
 
         ArrayList<String>preprotext = new ArrayList<String>();
@@ -30,20 +43,16 @@ public class FairCipher {
                 temp="";
       
         }
-        //System.out.println("preprocessed Text:"+Arrays.toString(preprotext.toArray()));
         return preprotext;
     }
+    //function to gentrate the key matrix
     public static String[] genKey(String Ori_key) {
         String keymat[]= new String[5];
         String key="";
         int j=0;
-        for (int i = 0; i <91 ; i++) {
-            //System.out.println(i);
-            //System.out.println("key: "+key+" i: "+(i-1));
-            
+        for (int i = 0; i <91 ; i++) {    
             if(i<Ori_key.length() && key.indexOf(Ori_key.charAt(i))==-1 ) {
                 if((Ori_key.charAt(i)=='I' ||  Ori_key.charAt(i)=='J') && (key.indexOf('I')>-1 || key.indexOf('J')>-1)) {
-                   // System.out.println("in I and J check");
                     continue;
                 }
                 key+=Ori_key.charAt(i);
@@ -56,14 +65,13 @@ public class FairCipher {
 
             if(key.indexOf((char)i)==-1 && i>=65) {
                 if(((char)i=='I' ||  (char)i=='J') && (key.indexOf('I')>-1 || key.indexOf('J')>-1)) {
-                    //System.out.println("in I and J check");
                     continue;
                 }
                 key+=(char)i;
             }
             
         } 
-        //split the entier string into String arrays 
+        //split the entier string into String arrays because the key in Single string
         String temp="";
         for (int i = 0; i < key.length(); i++) {
                     temp+=key.charAt(i);
@@ -72,41 +80,51 @@ public class FairCipher {
                             temp="";
                     }
         }
-        System.out.println(Arrays.toString(keymat));
         return keymat;
              
         
     }
-    public static String Encryption(String plaintext , String key)
+    //function to encrypt and decrypt the given text based on the key
+    public static String operation(String msg , String key,String mode)
     {
-         
-         ArrayList<String>text = preProcessText(plaintext.toUpperCase());
-         String keymat[]=genKey(key.toUpperCase()),ciphertext="";
+         //pre process the text
+         ArrayList<String>pptext = preProcessText(msg.toUpperCase());
+         //Gentrate the key matrix
+         String keymat[]=genKey(key.toUpperCase()),text="";
          
         String coloumntext="";int index1,index2;
-        text:for (int i = 0; i <text.size(); i++) {
+        texti:for (int i = 0; i <pptext.size(); i++) {
             
-            char char1=text.get(i).charAt(0),char2=text.get(i).charAt(1);
-            //change the i or j based on the key matrx
+            char char1=pptext.get(i).charAt(0),char2=pptext.get(i).charAt(1);
+            //change the i or j based on the what's in key matrx
                 char1= (char1=='J' || char1=='I')?keymat[i%5].indexOf('J')>-1?'J':keymat[i%5].indexOf('I')>-1?'I':char1:char1;
                 char2= (char2=='J' || char2=='I')?keymat[i%5].indexOf('J')>-1?'J':keymat[i%5].indexOf('I')>-1?'I':char2:char2;
-             System.out.println("first char: "+char1+" second char: "+char2);
+        
             //j for row 
              for (int j = 0; j < 5; j++) {
              coloumntext="";
             //For Rule 1
              index1=keymat[j].indexOf(char1); index2= keymat[j].indexOf(char2);
-            if(index1>-1 && index2>-1){
-                ciphertext+=keymat[j].charAt((index1+1)%5)+""+keymat[j].charAt((index2+1)%5);
-                continue text;
+            if(index1>-1 && index2>-1 ){
+                if(mode.equalsIgnoreCase("encrypt")){
+                text+=keymat[j].charAt((index1+1)%5)+""+keymat[j].charAt((index2+1)%5);
+                continue texti;
+                }else { 
+                text+=keymat[j].charAt((index1-1)<0?(index1-1)+5:(index1-1))+""+keymat[j].charAt((index2-1)<0?(index2-1)+5:(index2-1));
+                continue texti;
+                }
             }
-            
             //For Rule 2
-            for(int k=0; k<5; k++) coloumntext+=keymat[k].charAt(j);
+            for(int k=0; k<5; k++)coloumntext+=keymat[k].charAt(j);
             index1=coloumntext.indexOf(char1); index2= coloumntext.indexOf(char2);
-            if(index1>-1 &&index2>-1){
-                ciphertext+=coloumntext.charAt((index1+1)%5)+""+coloumntext.charAt((index2+1)%5);
-                continue text;
+            if(index1>-1 &&index2>-1 ){
+                if(mode.equalsIgnoreCase("encrypt")) {
+                    text+=coloumntext.charAt((index1+1)%5)+""+coloumntext.charAt((index2+1)%5);
+                    continue texti;
+                }else{
+                    text+=coloumntext.charAt((index1-1)<0?(index1-1)+5:(index1-1))+""+coloumntext.charAt((index2-1)<0?(index2-1)+5:(index2-1));
+                continue texti;
+                }
             }
             
             
@@ -119,76 +137,47 @@ public class FairCipher {
                     for (int k2 = 0; k2 < 5; k2++) {
                         index2=keymat[k2].indexOf(char2);
                         if(index2>-1) {
-                                ciphertext+=keymat[k].charAt(index2)+""+keymat[k2].charAt(index1);
-                                continue text;
+                                text+=keymat[k].charAt(index2)+""+keymat[k2].charAt(index1);
+                                continue texti;
                         }
                     }
                 }
             }
             
         }
-        return ciphertext;
+
+        return mode.equalsIgnoreCase("encrypt")?"CipherText: "+text:"PlainText: "+(text.toLowerCase());
     }
-    public static String Decryption(String ciphertext , String key)
-    {
-         
-         ArrayList<String>text = preProcessText(ciphertext.toUpperCase());
-         String keymat[]=genKey(key.toUpperCase()),plaintext="";
-         
-        String coloumntext="";int index1,index2;
-        text:for (int i = 0; i <text.size(); i++) {
-            
-            char char1=text.get(i).charAt(0),char2=text.get(i).charAt(1);
-            //change the i or j based on the key matrx
-                char1= (char1=='J' || char1=='I')?keymat[i%5].indexOf('J')>-1?'J':keymat[i%5].indexOf('I')>-1?'I':char1:char1;
-                char2= (char2=='J' || char2=='I')?keymat[i%5].indexOf('J')>-1?'J':keymat[i%5].indexOf('I')>-1?'I':char2:char2;
-             System.out.println("first char: "+char1+" second char: "+char2);
-            //j for row 
-             for (int j = 0; j < 5; j++) {
-             coloumntext="";
-            //For Rule 1
-             index1=keymat[j].indexOf(char1); index2= keymat[j].indexOf(char2);
-            if(index1>-1 && index2>-1){
-                plaintext+=keymat[j].charAt((index1-1)<0?(index1-1)+5:(index1-1))+""+keymat[j].charAt((index2-1)<0?(index2-1)+5:(index2-1));
-                continue text;
-            }
-            
-            //For Rule 2
-            for(int k=0; k<5; k++) coloumntext+=keymat[k].charAt(j);
-            index1=coloumntext.indexOf(char1); index2= coloumntext.indexOf(char2);
-            if(index1>-1 &&index2>-1){
-                plaintext+=coloumntext.charAt((index1-1)<0?(index1-1)+5:(index1-1))+""+coloumntext.charAt((index2-1)<0?(index2-1)+5:(index2-1));
-                continue text;
-            }
-            
-            
-            
-        }
-        //For Rule 3
-            for (int k = 0; k < 5; k++) {
-                index1=keymat[k].indexOf(char1);
-                if(index1>-1) {
-                    for (int k2 = 0; k2 < 5; k2++) {
-                        index2=keymat[k2].indexOf(char2);
-                        if(index2>-1) {
-                                plaintext+=keymat[k].charAt(index2)+""+keymat[k2].charAt(index1);
-                                continue text;
-                        }
-                    }
-                }
-            }
-            
-        }
-        return plaintext.toLowerCase();
-    }
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the plain text: ");
-        String text = sc.nextLine();
-        
-        System.out.println("Enter the key value:");
-        String key = sc.nextLine();
+        String options="Play Fair Cipher\n----------------\n1.Encryption\n2.Decryption\n",text,key;        
+        int choice;
+         do {
+            System.out.println(options+"Enter your Choice: ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:case 2:
+                    System.out.println("Enter the "+(choice==1?"plain":"cipher")+" text: ");
+                    text=sc.next();
+                    if(text.matches("[a-zA-Z]+")) {
+                        System.out.println("Enter the key: ");
+                        key=sc.next();
+                        if(key.matches("[a-zA-Z]+"))
+                            System.out.println(operation(text, key,(choice==1)?"encrypt":"decrypt"));
+                        else
+                            System.out.println("Sorry,input mus be a word");
+                    }else
+                        System.out.println("Sorry,input mus be a word");    
+                    break;
+                case 3:
+                    System.out.println("Bye..");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
+        }while(choice!=3);
        
-        System.out.println("Decrypted text: "+Decryption(Encryption("cryptography","pet"),"secure"));
     }
 }
