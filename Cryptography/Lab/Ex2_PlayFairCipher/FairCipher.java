@@ -152,7 +152,7 @@ public class FairCipher {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         printbanner();
-        String options="Play Fair Cipher\n----------------\n1.Encryption\n2.Decryption\n",text,key;        
+        String options="Play Fair Cipher\n----------------\n1.Encryption\n2.Decryption\n3.Exit\n",text,key;        
         int choice;
          do {
             System.out.println(options+"Enter your Choice: ");
