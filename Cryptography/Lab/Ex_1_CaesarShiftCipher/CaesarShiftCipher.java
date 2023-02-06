@@ -5,22 +5,35 @@
     static String Encrypt(String p) {
         p=p.toLowerCase();
         String c="";int temp,k=3;
-        for(int i : p.toCharArray()) {
-            i=i-97;
-            temp =((i+k)%26)+65;
-            c+=(char)temp;
-        }
+        
+            for(int i : p.toCharArray()) {   
+            if (i!=32) {
+                i=i-97;
+                temp =((i+k)%26)+65;
+                c+=(char)temp;
+            } else {
+                c+=(char)i;
+            }
+        } 
+        
+        
       
         return c;
     }
      //Decryption using caesar cipher
     static String Decrypt(String c) {
         String p="";int temp,k=3;
-        for(int i : c.toCharArray()) {
-            i=i-65;
-            temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
-            p+=(char)temp;
+        for(int i : c.toUpperCase().toCharArray()) {
+          
+            if (i!=32) {
+                i=i-65;
+                temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
+                p+=(char)temp;
+            } else {
+                p+=(char)i;
+            }
         }
+        
         
         return p;
     }
@@ -30,22 +43,35 @@
      static String Encrypt(String p,int k) {
         p=p.toLowerCase();
         String c="";int temp;
-        for(int i : p.toCharArray()) {
-            i=i-97;
-            temp =((i+k)%26)+65;
-            c+=(char)temp;
-        }
+        
+            for(int i : p.toCharArray()) {
+                
+                if (i!=32) {
+                    i=i-97;
+                    temp =((i+k)%26)+65;
+                    c+=(char)temp;
+                } else {
+                    c+=(char)i;
+                }
+            }
+        
         
         return c;
     }
      //Decryption using Shift cipher
     static String Decrypt(String c,int k) {
         String p="";int temp;
-        for(int i : c.toUpperCase().toCharArray()) {  
-            i=i-65;
-            temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
-            p+=(char)temp;
+        for(int i : c.toUpperCase().toCharArray()) { 
+            if (i!=32) {
+                i=i-65;
+                temp =(i-k)>=0?((i-k)%26)+97:26+(i-k)+97;
+                p+=(char)temp;
+            } else {
+                p+=(char)i;
+            } 
+           
         }
+        
         
         return p;
     }
@@ -59,7 +85,7 @@
 "     IT1681 - Cryptography and  Networks Security Laboratory\n" +
 "\n" +
 "	Roll Number : 20UIT020\n" +
-"	Name        : T.Manikumar\n" +
+"	Name        :T.MANIKUMAR\n" +
 "	Ex. No.	    : 01\n" +
 "	Ex. Name    : Implementation of Caesar Cipher and shift Cipher	\n" +
 "	Date        : 13.01.2023\n" +
