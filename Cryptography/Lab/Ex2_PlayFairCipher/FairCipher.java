@@ -27,22 +27,23 @@ public class FairCipher {
             cor=msg.charAt(i);
             
             if(prev == cor) {
-                preprotext.add(temp+"x");
+                preprotext.add(temp+"X");
         
                 if(i == msg.length()-1) {
-                    preprotext.add(msg.charAt(i)+"x");
+                    preprotext.add(msg.charAt(i)+"X");
             }
                 i++;
             }else {
                 preprotext.add(temp+cor);
                 if(i == msg.length()-2) 
-                        preprotext.add(msg.charAt(i+1)+"x");
+                        preprotext.add(msg.charAt(i+1)+"X");
                 
                 i+=2;
                 }
                 temp="";
       
         }
+        System.out.println("preprocessed text: "+Arrays.toString(preprotext.toArray()));
         return preprotext;
     }
     //function to gentrate the key matrix
@@ -80,6 +81,7 @@ public class FairCipher {
                             temp="";
                     }
         }
+        System.out.println("key matrix:"+Arrays.toString(keymat));
         return keymat;
              
         
@@ -157,10 +159,11 @@ public class FairCipher {
          do {
             System.out.println(options+"Enter your Choice: ");
             choice = sc.nextInt();
+            sc.nextLine();
             switch (choice) {
                 case 1:case 2:
                     System.out.println("Enter the "+(choice==1?"plain":"cipher")+" text: ");
-                    text=sc.next();
+                    text=sc.nextLine();
                     if(text.matches("[a-zA-Z]+")) {
                         System.out.println("Enter the key: ");
                         key=sc.next();
