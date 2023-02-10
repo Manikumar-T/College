@@ -18,10 +18,11 @@ public class FairCipher {
     }
     //function for Pre process the Given Text
     public static ArrayList<String> preProcessText(String msg) {
-
+        //Variable Declaration
         ArrayList<String>preprotext = new ArrayList<String>();
         String temp="";
         char prev,cor;int i=1;
+        //while to itrate to the length of message and do a pre processing
         while( i < msg.length()) {
             temp+=prev=msg.charAt(i-1);
             cor=msg.charAt(i);
@@ -48,9 +49,11 @@ public class FairCipher {
     }
     //function to gentrate the key matrix
     public static String[] genKey(String Ori_key) {
+        //variable declaration
         String keymat[]= new String[5];
         String key="";
         int j=0;
+        //loop to itrate to 91 to add the alphabets with key to make key matrix
         for (int i = 0; i <91 ; i++) {    
             if(i<Ori_key.length() && key.indexOf(Ori_key.charAt(i))==-1 ) {
                 if((Ori_key.charAt(i)=='I' ||  Ori_key.charAt(i)=='J') && (key.indexOf('I')>-1 || key.indexOf('J')>-1)) {
@@ -95,6 +98,7 @@ public class FairCipher {
          String keymat[]=genKey(key.toUpperCase()),text="";
          
         String coloumntext="";int index1,index2;
+
         texti:for (int i = 0; i <pptext.size(); i++) {
             
             char char1=pptext.get(i).charAt(0),char2=pptext.get(i).charAt(1);
@@ -150,7 +154,7 @@ public class FairCipher {
 
         return mode.equalsIgnoreCase("encrypt")?"CipherText: "+text:"PlainText: "+(text.toLowerCase());
     }
-    
+    //main method to print the banner and choices 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         printbanner();
@@ -170,9 +174,9 @@ public class FairCipher {
                         if(key.matches("[a-zA-Z]+"))
                             System.out.println(operation(text, key,(choice==1)?"encrypt":"decrypt"));
                         else
-                            System.out.println("Sorry,input mus be a word");
+                            System.out.println("Sorry,input must be a word");
                     }else
-                        System.out.println("Sorry,input mus be a word");    
+                        System.out.println("Sorry,input must be a word");    
                     break;
                 case 3:
                     System.out.println("Bye..");
