@@ -1,5 +1,6 @@
 import java.util.*;
 public class ColumnarTransposition {
+    //banner to print the information
     public static void printbanner() {
         System.out.println("'"
         + "*******************************************************\n" +
@@ -13,24 +14,24 @@ public class ColumnarTransposition {
 "*******************************************************\n" +
 "\n");
     }
-    //Function to find the Alphabet order and retrun the order arrays
-    public static int[] alphaOrder(String key) {
+    //Function to find the Alphabet position and retrun the position arrays
+    public static int[] alphaposition(String key) {
         int len=key.length();key = key.toUpperCase();
-        int[] temp = new int[len],order=new int[len];
+        int[] temp = new int[len],position=new int[len];
         for (int i = 0; i < len; i++) 
             temp[i]=key.charAt(i);
         
        Arrays.sort(temp);
        for (int i = 0; i < len; i++){ 
-        //order[key.indexOf((char)temp[i])]=i+1;
-        order[i]=key.indexOf((char)temp[i]);
+        //position[key.indexOf((char)temp[i])]=i+1;
+        position[i]=key.indexOf((char)temp[i]);
         key=key.replaceFirst((char)temp[i]+"", "_");
     }
-        System.out.println("The order:"+Arrays.toString(order));
-        return order;
+        System.out.println("The position:"+Arrays.toString(position));
+        return position;
         
     }
-    //function to print the 2x2 matrix
+    //function to print the matrix
     public static void printMatrix(char[][] matrix)  {
         
         for (int i = 0; i <matrix.length; i++) {
@@ -44,8 +45,11 @@ public class ColumnarTransposition {
     //function to Encrypt the plain text and print the cipher text
     public static void Encrypt(String pt,String key) {
              int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+2:pt.length()/col+1,index=0;
-            pt=pt.replaceAll(" ","_").toUpperCase()+("*".repeat(pt.length()%col == 0?0:col - pt.length()%col));String cipher="";
+            //fill the space with underscore and the filler character with asterisk
+             pt=pt.replaceAll(" ","_").toUpperCase()+("*".repeat(pt.length()%col == 0?0:col - pt.length()%col));
+            String cipher="";
             char[][] matrix = new char[row][col];
+            //Loop to generate matrix from the plain text
     loop:   for (int i = 0; i <row; i++) {
                 for (int j = 0; j <col ; j++) {
                     matrix[i][j]=pt.charAt(index++);
@@ -54,8 +58,9 @@ public class ColumnarTransposition {
                     }
                 }
             }
-            int[] order= alphaOrder(key);
-            for (int i:order) {
+            int[] position= alphaposition(key);
+            //loop to generate the cipher text from the matrix
+            for (int i:position) {
                 for (int j = 0; j < row; j++) {
                     cipher+=(matrix[j][i]=='_')?" ":matrix[j][i];
                 }
@@ -70,7 +75,8 @@ public class ColumnarTransposition {
     public static void Decrypt(String ct , String key) {
         int index=0,row=ct.length()/key.length(),col=key.length();ct=ct.replaceAll(" ", "_");
         String pt="";char matrix[][] = new char[row][col];
-    loop: for (int i : alphaOrder(key)) {
+        //loop to generate the matrix from the cipher text
+    loop: for (int i : alphaposition(key)) {
             for (int j = 0; j < row; j++) {
                 matrix[j][i]=ct.charAt(index++);
                     if (index == ct.length()) {
@@ -78,6 +84,7 @@ public class ColumnarTransposition {
                     }
             }
         }
+        //loop to generate the plain text from the matrix
         for (int i = 0; i <row; i++) {
             for (int j = 0; j <col ; j++) {
                 pt += (matrix[i][j]=='_')?" " :matrix[i][j]=='*'?"":matrix[i][j];
