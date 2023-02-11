@@ -9,7 +9,7 @@ public class ColumnarTransposition {
 "	Name        :T.MANIKUMAR\n" +
 "	Ex. No.	    : 04\n" +
 "	Ex. Name    : Implementation of Columnar Transposition Cipher	\n" +
-"	Date        : 3.02.2023\n" +
+"	Date        : 10.02.2023\n" +
 "*******************************************************\n" +
 "\n");
     }
@@ -21,9 +21,12 @@ public class ColumnarTransposition {
             temp[i]=key.charAt(i);
         
        Arrays.sort(temp);
-        for (int i = 0; i < len; i++) 
-            order[key.indexOf((char)temp[i])]=i+1;
-        
+       for (int i = 0; i < len; i++){ 
+        //order[key.indexOf((char)temp[i])]=i+1;
+        order[i]=key.indexOf((char)temp[i]);
+        key=key.replaceFirst((char)temp[i]+"", "_");
+    }
+        System.out.println("The order:"+Arrays.toString(order));
         return order;
         
     }
@@ -40,7 +43,7 @@ public class ColumnarTransposition {
     }
     //function to Encrypt the plain text and print the cipher text
     public static void Encrypt(String pt,String key) {
-            int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+2:pt.length()/col+1,index=0;
+             int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+2:pt.length()/col+1,index=0;
             pt=pt.replaceAll(" ","_").toUpperCase()+("*".repeat(pt.length()%col == 0?0:col - pt.length()%col));String cipher="";
             char[][] matrix = new char[row][col];
     loop:   for (int i = 0; i <row; i++) {
@@ -51,9 +54,10 @@ public class ColumnarTransposition {
                     }
                 }
             }
-            for (int i : alphaOrder(key)) {
+            int[] order= alphaOrder(key);
+            for (int i:order) {
                 for (int j = 0; j < row; j++) {
-                    cipher+=(matrix[j][i-1]=='_')?" ":matrix[j][i-1];
+                    cipher+=(matrix[j][i]=='_')?" ":matrix[j][i];
                 }
             }
             System.out.println("Encryption Matrix");
@@ -68,7 +72,7 @@ public class ColumnarTransposition {
         String pt="";char matrix[][] = new char[row][col];
     loop: for (int i : alphaOrder(key)) {
             for (int j = 0; j < row; j++) {
-                matrix[j][i-1]=ct.charAt(index++);
+                matrix[j][i]=ct.charAt(index++);
                     if (index == ct.length()) {
                         break loop;
                     }
@@ -99,7 +103,7 @@ public class ColumnarTransposition {
                 case 1:case 2:
                     System.out.println("Enter the "+(choice==1?"plain":"cipher")+" text: ");
                     text=sc.nextLine();
-                    if(text.matches("[a-zA-Z]+")) {
+                    if(text.matches("[a-zA-Z\\s*]+")) {
                         System.out.println("Enter the key: ");
                         key=sc.next();
                         if(key.matches("[a-zA-Z]+"))
