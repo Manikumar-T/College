@@ -1,8 +1,4 @@
 import java.util.*;
-
-/**
- * ColumnarTransposition
- */
 public class ColumnarTransposition {
     public static void printbanner() {
         System.out.println("'"
@@ -15,8 +11,7 @@ public class ColumnarTransposition {
 "	Ex. Name    : Implementation of Columnar Transposition Cipher	\n" +
 "	Date        : 3.02.2023\n" +
 "*******************************************************\n" +
-"\n" +
-"	------- ------- --------\n");
+"\n");
     }
     //Function to find the Alphabet order and retrun the order arrays
     public static int[] alphaOrder(String key) {
@@ -45,7 +40,7 @@ public class ColumnarTransposition {
     }
     //function to Encrypt the plain text and print the cipher text
     public static void Encrypt(String pt,String key) {
-            int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+2:pt.length()+1,index=0;
+            int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+2:pt.length()/col+1,index=0;
             pt=pt.replaceAll(" ","_").toUpperCase()+("*".repeat(pt.length()%col == 0?0:col - pt.length()%col));String cipher="";
             char[][] matrix = new char[row][col];
     loop:   for (int i = 0; i <row; i++) {
@@ -89,6 +84,7 @@ public class ColumnarTransposition {
         printMatrix(matrix);
         System.out.println("plain Text:"+(pt.toLowerCase()));
     } 
+    //main function used to drive the other function
     public static void main(String[] args) {
         
         Scanner sc = new Scanner(System.in);
@@ -96,7 +92,7 @@ public class ColumnarTransposition {
         String options="Columnat Transposition\n---------------------\n1.Encryption\n2.Decryption\n3.Exit\n",text,key;        
         int choice;
          do {
-            //Get the choice for the user
+            //Get the choice from the user
             System.out.println(options+"Enter your Choice: ");
             choice = sc.nextInt();sc.nextLine();
             switch (choice) {
