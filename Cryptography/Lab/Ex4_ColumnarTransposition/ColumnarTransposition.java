@@ -44,7 +44,7 @@ public class ColumnarTransposition {
     }
     //function to Encrypt the plain text and print the cipher text
     public static void Encrypt(String pt,String key) {
-             int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+2:pt.length()/col+1,index=0;
+             int col=key.length(),row = (pt.length()%col!=0)?(pt.length()/col)+1:pt.length()/col,index=0;
             //fill the space with underscore and the filler character with asterisk
              pt=pt.replaceAll(" ","_").toUpperCase()+("*".repeat(pt.length()%col == 0?0:col - pt.length()%col));
             String cipher="";
@@ -62,7 +62,7 @@ public class ColumnarTransposition {
             //loop to generate the cipher text from the matrix
             for (int i:position) {
                 for (int j = 0; j < row; j++) {
-                    cipher+=(matrix[j][i]=='_')?" ":matrix[j][i];
+                    cipher+=(matrix[j][i]=='_')?" " :matrix[j][i]=='*'?"":matrix[j][i];
                 }
             }
             System.out.println("Encryption Matrix");
@@ -73,12 +73,16 @@ public class ColumnarTransposition {
     }
     //function to Decrypt the cipher text and print the plain text
     public static void Decrypt(String ct , String key) {
-        int index=0,row=ct.length()/key.length(),col=key.length();ct=ct.replaceAll(" ", "_");
+        int col=key.length(),row = (ct.length()%col!=0)?(ct.length()/col)+1:ct.length()/col,index=0;
+        ct=ct.replaceAll(" ", "_");
         String pt="";char matrix[][] = new char[row][col];
+        int star = ct.length()%col == 0?0:col - ct.length()%col;
+        for (int i = 1; i <= star; i++){matrix[row-1][col-i]='*';};
+        
         //loop to generate the matrix from the cipher text
     loop: for (int i : alphaposition(key)) {
             for (int j = 0; j < row; j++) {
-                matrix[j][i]=ct.charAt(index++);
+                matrix[j][i]=(matrix[j][i]=='*')?'*':ct.charAt(index++);
                     if (index == ct.length()) {
                         break loop;
                     }
