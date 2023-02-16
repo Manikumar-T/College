@@ -104,7 +104,7 @@ public class ColumnarTransposition {
         
         Scanner sc = new Scanner(System.in);
         printbanner();
-        String options="Columnat Transposition\n---------------------\n1.Encryption\n2.Decryption\n3.Exit\n",text,key;        
+        String options="Row-Columnar Transposition\n---------------------\n1.Encryption\n2.Decryption\n3.Exit\n",text,key;        
         int choice;
          do {
             //Get the choice from the user
