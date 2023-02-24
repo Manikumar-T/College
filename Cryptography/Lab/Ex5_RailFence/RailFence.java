@@ -1,25 +1,34 @@
 
 public class RailFence {
-    static int depth;static String text;
+    static int depth;static String text,ciphertext="",plaintext="";
    static char matrix[][];
 
-    public static void  ArrayOpt(char opt){
+    public static void  Linear(String opt){
+        int index=0;
         for (int i = 0; i < depth; i++) {
             for (int j = 0; j < text.length(); j++) {
 
-                if(opt == 'i')
+                if(opt.equals("dash"))
                      matrix[i][j]='-';
-                else
+                if(opt.equals("print"))
                     System.out.print(matrix[i][j]);
+                if(opt.equals("encrypt"))
+                    if(matrix[i][j]!='-')
+                        ciphertext+=matrix[i][j];
+                if(opt.equals("decrypt"))
+                    if(matrix[i][j]=='*')
+                        matrix[i][j]=ciphertext.charAt(index++);
+
             }
-            if(opt!='i')
+            if(opt.equals("print"))
                 System.out.println();
             
         }
+        ciphertext=ciphertext.toUpperCase();
 
     }
-    public static void ziczacMapper(char opt) {
-        ArrayOpt('i');
+    public static void ziczac(String opt) {
+
         char state='d';int row=0;
         for (int col = 0; col < text.length(); col++) {
             //It is used to switch the state
@@ -28,25 +37,42 @@ public class RailFence {
             else if(row == (depth-1))
                 state= 'u';
             //It is used to do the downword operation
+
             if(state=='d')
-            matrix[row++][col]=opt=='e'?text.charAt(col):'*';
+            //matrix[row++][col]=(opt=='e')?text.charAt(col):'*';
+                if(opt.equals("encrypt"))
+                    matrix[row++][col]=text.charAt(col);
+                if(opt.equals("astric"))
+                    matrix[row++][col]='*';
+                if(opt.equals("decrypt"))
+                    plaintext+=matrix[row++][col];
 
             //It is used to do the upword operation
             if(state =='u')
-                matrix[row--][col]=opt=='e'?text.charAt(col):'*';
+                //matrix[row--][col]=opt=='e'?text.charAt(col):'*';
+                if(opt.equals("encrypt"))
+                    matrix[row--][col]=text.charAt(col);
+                if(opt.equals("astric"))
+                    matrix[row--][col]='*';
+                if(opt.equals("decrypt"))
+                    plaintext+=matrix[row--][col];
 
         }
     }
+    
    
     public static void main(String[] args) {
         //Scanner sc = new Scanner(System.in);
         text="cryptography";
         depth = 3;
         matrix=new char[depth][text.length()];
+        Linear("dash");
+        Linear("print");
+        ziczac("encrypt");
+        Linear("print");
+        Linear("encrypt");
+        System.out.println("Cipher Text :"+ciphertext);
+        
 
-        
-        
-        ziczacMapper('e');
-        ArrayOpt('p');
     }
 }
