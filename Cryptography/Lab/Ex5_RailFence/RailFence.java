@@ -25,6 +25,7 @@ public class RailFence {
             
         }
         ciphertext=ciphertext.toUpperCase();
+        plaintext=plaintext.toLowerCase();
 
     }
     public static void ziczac(String opt) {
@@ -38,7 +39,7 @@ public class RailFence {
                 state= 'u';
             //It is used to do the downword operation
 
-            if(state=='d')
+            if(state=='d') {
             //matrix[row++][col]=(opt=='e')?text.charAt(col):'*';
                 if(opt.equals("encrypt"))
                     matrix[row++][col]=text.charAt(col);
@@ -46,9 +47,9 @@ public class RailFence {
                     matrix[row++][col]='*';
                 if(opt.equals("decrypt"))
                     plaintext+=matrix[row++][col];
-
+            }
             //It is used to do the upword operation
-            if(state =='u')
+            if(state =='u') {
                 //matrix[row--][col]=opt=='e'?text.charAt(col):'*';
                 if(opt.equals("encrypt"))
                     matrix[row--][col]=text.charAt(col);
@@ -56,22 +57,36 @@ public class RailFence {
                     matrix[row--][col]='*';
                 if(opt.equals("decrypt"))
                     plaintext+=matrix[row--][col];
-
+            }
         }
+        ciphertext=ciphertext.toUpperCase();
+        plaintext=plaintext.toLowerCase();
     }
     
    
     public static void main(String[] args) {
         //Scanner sc = new Scanner(System.in);
-        text="cryptography";
+        text="manikumar";
         depth = 3;
         matrix=new char[depth][text.length()];
+        //encryption process
         Linear("dash");
-        Linear("print");
+        //Linear("print");
         ziczac("encrypt");
-        Linear("print");
+        //Linear("print");
         Linear("encrypt");
         System.out.println("Cipher Text :"+ciphertext);
+        //decryption
+        text=ciphertext;
+        Linear("dash");
+        Linear("print");
+        ziczac("astric");
+        Linear("print");
+        Linear("decrypt");
+        Linear("print");
+        ziczac("decrypt");
+        System.out.println("plain Text: "+plaintext);
+
         
 
     }
