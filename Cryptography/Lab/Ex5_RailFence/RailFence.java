@@ -9,7 +9,7 @@ public class RailFence {
     "\n" +
     "	Roll Number : 20UIT020\n" +
     "	Name        :T.MANIKUMAR\n" +
-    "	Ex. No.	    : 04\n" +
+    "	Ex. No.	    : 05\n" +
     "	Ex. Name    : Implementation of Rail fence Cipher	\n" +
     "	Date        : 10.02.2023\n" +
     "*******************************************************\n" +
