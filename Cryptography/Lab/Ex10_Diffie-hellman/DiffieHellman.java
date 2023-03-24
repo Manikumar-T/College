@@ -4,6 +4,19 @@ import java.math.*;
  * DiffieHellman
  */
 public class DiffieHellman {
+          //banner to print the information
+          public static void printbanner() {
+            System.out.println("'"
+            + "*******************************************************\n" +
+    "     IT1681 - Cryptography and  Networks Security Laboratory\n" +
+    "\n" +
+    "	Roll Number : 20UIT020\n" +
+    "	Name        :T.MANIKUMAR\n" +
+    "	Ex. No.	    : 10\n" +
+    "	Ex. Name    : Implement The Diffie-Hellman Key Exchange Algorithm For A Given Problem	\n" +
+    "*******************************************************\n"
+    );
+        }
     public static int public_key(int Prime,int Gen,int private_key) {
 
         return (int)Math.pow(Gen,private_key)%Prime;
@@ -14,6 +27,7 @@ public class DiffieHellman {
     }
 
     public static void main(String[] args) {
+        printbanner();
         Scanner sc  = new Scanner(System.in);
         int Prime, Gen, sender_private, receiver_private, sender_public, receiver_public,sender_secret, receiver_secret;
             
@@ -31,7 +45,7 @@ public class DiffieHellman {
         System.out.println("Shared Secret key for Sender: "+(sender_secret=share_secret(Prime, receiver_public,sender_private)));
         System.out.println("Shared Secret key for Receiver: "+(receiver_secret=share_secret(Prime, sender_public,receiver_private)));
 
-        System.out.println(sender_secret==receiver_secret?"Secret key is successfully shared":"");
+        System.out.println(sender_secret==receiver_secret?"Secret key is successfully shared":"Secret key is not shared");
         sc.close();
         
 
