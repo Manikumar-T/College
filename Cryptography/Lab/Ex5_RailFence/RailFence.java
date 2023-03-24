@@ -119,7 +119,7 @@ public class RailFence {
                                 System.out.println("plain Text: "+plaintext);
                             }
                         }else
-                            System.out.println("Sorry,input must be a Number");
+                            System.out.println("Sorry,input must be a positive Number");
                     }else
                         System.out.println("Sorry,input must be a word");    
                     break;
