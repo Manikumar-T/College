@@ -14,7 +14,6 @@ public class DES {
 "	Name        :T.MANIKUMAR\n" +
 "	Ex. No.	    : 07\n" +
 "	Ex. Name    : Apply DES algorithm for practical Application	\n" +
-"	Date        : 10.02.2023\n" +
 "*******************************************************\n" +
 "\n");
     }
