@@ -32,7 +32,7 @@ public class RailFence {
                         ciphertext+=matrix[i][j];
                 if(opt.equals("decrypt"))
                     if(matrix[i][j]=='*')
-                        matrix[i][j]=ciphertext.charAt(index++);
+                        matrix[i][j]=text.charAt(index++);
 
             }
             if(opt.equals("print"))
@@ -96,10 +96,10 @@ public class RailFence {
                     System.out.println("the text "+ text);
                     if(text.matches("[a-zA-Z\\s*]+")) {
                         System.out.println("Enter the key: ");
-                        depth=sc.nextInt();
-                        String str = depth+"";
-                        matrix=new char[depth][text.length()];
-                        if(str.matches("[0-9]+"))
+                        String str=sc.next();
+                        if(str.matches("[0-9]+")) {
+                            depth =Integer.parseInt(str);
+                            matrix=new char[depth][text.length()];
                             if (choice==1) {
                                 //encryption process
                                 Linear("dash");
@@ -118,7 +118,7 @@ public class RailFence {
                                 ziczac("decrypt");
                                 System.out.println("plain Text: "+plaintext);
                             }
-                        else
+                        }else
                             System.out.println("Sorry,input must be a Number");
                     }else
                         System.out.println("Sorry,input must be a word");    
