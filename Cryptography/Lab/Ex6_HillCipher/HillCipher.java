@@ -7,13 +7,14 @@ public class HillCipher {
 "\n" +
 "	Roll Number : 20UIT020\n" +
 "	Name        :T.MANIKUMAR\n" +
-"	Ex. No.	    : 03\n" +
-"	Ex. Name    : Implementation of Vigenere Cipher	\n" +
-"*******************************************************\n" +
-"\n");
+"	Ex. No.	    : 06\n" +
+"	Ex. Name    : Implementation of Hill Cipher	\n" +
+"*******************************************************\n");
     }
+    //class variable for key ,invers,msg and result matrix
     static int keymatrix[][],inversmatrix[][],msgmatrix[][],n,resultmatrix[][];
     static String key,msg;
+    //method to find the K invers for the matrix either 2x2 or 3x3
     public static void kInvers() {
         int detofk;
         if (keymatrix.length==2) {
@@ -24,12 +25,9 @@ public class HillCipher {
                     +keymatrix[0][2]*(keymatrix[1][0]*keymatrix[2][1]-keymatrix[1][1]*keymatrix[2][0]);
         }
         detofk=detofk<0?detofk+26 : detofk;
-        
-       // return detofk;
         int i=1;
         while ((detofk*i++)%26!=1);
         detofk=i-1;
-        //System.out.println(detofk= i-1);
         if (keymatrix.length==2) {
             inversmatrix[0][0]=keymatrix[1][1];
             inversmatrix[0][1]=-keymatrix[0][1];
@@ -51,9 +49,9 @@ public class HillCipher {
             for (int j = 0; j < keymatrix.length; j++) {
                 inversmatrix[i][j]=inversmatrix[i][j]<0?((inversmatrix[i][j]*detofk)%26)+26:(inversmatrix[i][j]*detofk)%26;
             }
-            System.out.println();
         }
     }
+    //method to print the multidimensional matrix
     public static void printMatrix(int matrix[][]) {
         for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[0].length; j++) {
@@ -62,6 +60,7 @@ public class HillCipher {
                 System.out.println();
             }
     }
+    // method to generate the msg matrix for the msg string
     public static void genMsgMatrix() {
         msg=msg.toLowerCase();
         int index=0;
@@ -72,7 +71,7 @@ public class HillCipher {
             }
         }
     }
-    
+    //method to genrate the key matrix for the key string
     public static void genKeyMatrix() {
         keymatrix = new int[n][n];
         inversmatrix = new int[n][n];
@@ -85,11 +84,13 @@ public class HillCipher {
             }
         }
     }
+    //method to encrypt the message
     public static String encrypt() {
         String ciphertext="";
         genMsgMatrix();
         System.out.println();
         genKeyMatrix();
+        System.out.println("Key Matrix:");
         printMatrix(keymatrix);
         int sum=0;
         for (int i = 0; i < keymatrix.length; i++) {
@@ -101,7 +102,7 @@ public class HillCipher {
                 resultmatrix[i][j]=sum%26;
             }
         }
-        System.out.println("result matrix");
+        System.out.println("Result matrix:");
         printMatrix(resultmatrix);
         for (int i = 0; i < resultmatrix[0].length; i++) {
             for (int j = 0; j < resultmatrix.length; j++) {
@@ -110,12 +111,15 @@ public class HillCipher {
         }
         return ciphertext;
     }
+    //method to decrypt the message
     public static String decrypt() {
         String plaintext="";
         genMsgMatrix();
         genKeyMatrix();
+        System.out.println("Key Matrix:");
         printMatrix(keymatrix);
         kInvers();
+        System.out.println("Invers Matrix:");
         printMatrix(inversmatrix);
         int sum=0;
         for (int i = 0; i < inversmatrix.length; i++) {
@@ -127,7 +131,7 @@ public class HillCipher {
                 resultmatrix[i][j]=sum%26;
             }
         }
-        System.out.println("result matrix");
+        System.out.println("Result matrix:");
         printMatrix(resultmatrix);
         for (int i = 0; i < resultmatrix[0].length; i++) {
             for (int j = 0; j < resultmatrix.length; j++) {
@@ -136,22 +140,24 @@ public class HillCipher {
         }
         return plaintext;
     }
-    public static void init(String msgloc,String keyloc) {
-        if(msgloc.length()%2==0 && keyloc.length()%2==0) {
+    //inti method to initalize the matrix variable based on the square matrix condition
+    public static boolean init(String msgloc,String keyloc) {
+        if(msgloc.length()%2==0 && keyloc.length()%2==0 && keyloc.length()/2 == 2 || keyloc.length()/2 == 3) {
             n=2;
             msgmatrix = new int[2][msgloc.length()/2];
             resultmatrix = new int[2][msgloc.length()/2];
             msg=msgloc;
             key=keyloc;
-        }else if(msgloc.length()%3==0 && keyloc.length()%3==0) { 
+        }else if(msgloc.length()%3==0 && keyloc.length()%3==0 && keyloc.length()/3 == 2 || keyloc.length()/3 == 3) { 
             n=3;
             msgmatrix  = new int[3][msgloc.length()/3];
             resultmatrix  = new int[3][msgloc.length()/3];
             msg=msgloc;
             key=keyloc;
-        }else{
-            System.out.println("Sorry,Square Matrix is not able to Generate");
-        }
+        }else  
+            return false;
+        
+        return true;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);        
@@ -170,14 +176,18 @@ public class HillCipher {
                         System.out.println("Enter the key: ");
                         key=sc.next();
                         if(key.matches("[a-zA-Z]+")) {
-                            init(msg, key);
-                            if(choice==1) 
-                                System.out.println(encrypt());
+
+                            if (init(msg, key)) {
+                                if(choice==1) 
+                                System.out.println("Cipher Text: "+encrypt());
                             else
-                                System.out.println(decrypt());
+                                System.out.println("Plain Text: "+decrypt());
+                            }else
+                                System.out.println("Sorry,Square Matrix is not able to Generate");
+                           
                         }
                         else
-                            System.out.println("Sorry,input mus be a word");
+                            System.out.println("Sorry,input must be a word");
                     }else
                         System.out.println("Sorry,input must be a word");    
                     break;
