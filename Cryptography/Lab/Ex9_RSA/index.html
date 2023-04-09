@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RSA algoritham</title>
+    <style>
+        table,tr,td,th{
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        th{
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var p,q,n,PiN,e,g;
+        function calculateN() {
+             p = parseInt(document.getElementById('p').value);
+             q = parseInt(document.getElementById('q').value);
+             n = p*q;
+             document.getElementById('nL').innerHTML=n;
+                  
+        }
+        function calculatePiN() {
+            PiN = (p-1)*(q-1);
+            document.getElementById('PiNL').innerHTML = PiN;
+        }
+        function findE() {
+            e = parseInt(document.getElementById('e').value);
+            
+            g = gcd(PiN,e);
+            if (g == 1) {
+                document.getElementById('eL').innerHTML="valid"
+            }else{
+                document.getElementById('eL').innerHTML="Invalid"
+            }
+            return g;
+        }
+        function gcd(divident, divider) {
+        if(divider==1)
+            return 1;
+        if(divider==0)
+            return 0;
+        return gcd((divider),(divident%divider));  
+        }
+        function Encrypt() {
+            p=q=n=PiN=e=g=0;
+            calculateN();
+            calculatePiN();
+            if(findE()==1) {
+                var M = parseInt(document.getElementById('M').value);
+                
+                document.getElementById('EncryptL').innerHTML=Math.pow(M,e)%n;
+            }
+
+        }
+        function Decrypt() {
+            p=q=n=PiN=e=g=0;
+            calculateN();
+            calculatePiN();
+            Encrypt();
+            var d=1;
+            if(findE()==1) {
+                var C = parseInt(document.getElementById('C').value);
+                while ((e*d++)%PiN != 1);
+                d--;
+                var mult=1;
+                for (let i = 1; i <= d; i++) {
+                   mult = (mult * C)%n;
+                   console.log("i= "+i+" multi= "+mult);
+                    
+                }
+                document.getElementById('DecryptL').innerHTML=mult;
+            }
+            
+        }
+    </script>
+    
+
+        <table>
+            <tr><th>Lable</th><th>Input</th><th>Lable</th><th>Output</th></tr>
+            <!-- input of p and the output n row -->
+            <tr>
+                <th>P</th><td><input type="number" name="" id="p" placeholder="Enter p value"></td>
+                <th ><button onclick="calculateN()">N</button></th><td  id="nL"></td>
+            </tr>
+            <!-- input for q value -->
+            <tr>
+                <th>Q</th><td><input type="number" name="" id="q" placeholder="Enter Q value"></td>
+                <th ><button onclick="calculatePiN()">Ø(N)</button></th><td  id="PiNL"></td>
+            </tr>
+            <!-- input for the e value -->
+            <tr>
+                <th>e</th><td><input type="number" name="" id="e" placeholder="Enter e value"></td>
+                <th ><button onclick="findE()">e</button></th><td  id="eL"></td>
+            </tr>
+            <!-- input for the M value and encrypt-->
+            <tr>
+                <th>M</th><td><input type="number" name="" id="M" placeholder="Enter M value"></td>
+                <th ><button onclick="Encrypt()">Encrypt</button></th><td  id="EncryptL"></td>
+            </tr>
+            <!-- input for the C value and decrypt -->
+            <tr>
+                <th>C</th><td><input type="number" name="" id="C" placeholder="Enter C value"></td>
+                <th ><button onclick="Decrypt()">Decrypt</button></th><td  id="DecryptL" ></td>
+            </tr>
+
+        </table>
+    
+</body>
+</html>
