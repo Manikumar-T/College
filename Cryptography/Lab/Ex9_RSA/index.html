@@ -8,13 +8,21 @@
             border-collapse: collapse;
         }
         th{
-            background-color: aquamarine;
+            background-color: rgb(180, 236, 243);
+        }
+        button{
+            width: 70px;
+            border: none;
+            background-color: transparent;
+            font-weight: bold;
+            
         }
     </style>
 </head>
 <body>
     <script>
         var p,q,n,PiN,e,g;
+        //function to calculate the N value
         function calculateN() {
              p = parseInt(document.getElementById('p').value);
              q = parseInt(document.getElementById('q').value);
@@ -22,10 +30,12 @@
              document.getElementById('nL').innerHTML=n;
                   
         }
+        //function to calculate the pi of N value
         function calculatePiN() {
             PiN = (p-1)*(q-1);
             document.getElementById('PiNL').innerHTML = PiN;
         }
+        //function to check the gcd(e,Ø) equle to 1
         function findE() {
             e = parseInt(document.getElementById('e').value);
             
@@ -37,6 +47,7 @@
             }
             return g;
         }
+        //function to find the gcd
         function gcd(divident, divider) {
         if(divider==1)
             return 1;
@@ -44,6 +55,7 @@
             return 0;
         return gcd((divider),(divident%divider));  
         }
+        //function to encrypt the M
         function Encrypt() {
             p=q=n=PiN=e=g=0;
             calculateN();
@@ -53,8 +65,8 @@
                 
                 document.getElementById('EncryptL').innerHTML=Math.pow(M,e)%n;
             }
-
         }
+        //function to decrypt the C
         function Decrypt() {
             p=q=n=PiN=e=g=0;
             calculateN();
@@ -76,10 +88,11 @@
             
         }
     </script>
-    
-
-        <table>
-            <tr><th>Lable</th><th>Input</th><th>Lable</th><th>Output</th></tr>
+    <center>
+        <h1>RSA Algoritham</h1>
+        <h2>IT1681 - Cryptography and  Networks Security Laboratory</h2>
+        <table >
+            <tr><th>Label</th><th>Input</th><th>Label</th><th>Output</th></tr>
             <!-- input of p and the output n row -->
             <tr>
                 <th>P</th><td><input type="number" name="" id="p" placeholder="Enter p value"></td>
@@ -107,6 +120,6 @@
             </tr>
 
         </table>
-    
+    </center>
 </body>
 </html>
