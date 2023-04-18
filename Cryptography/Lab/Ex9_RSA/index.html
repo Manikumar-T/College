@@ -22,6 +22,17 @@
 <body>
     <script>
         var p,q,n,PiN,e,g;
+        //validataion
+        function isnum() {
+            var pvalue = document.getElementById('p').value;
+            var qvalue = document.getElementById('q').value;
+            var evalue = document.getElementById('e').value;
+            if (isNaN(pvalue+qvalue+evalue)) {
+                return false;
+            }
+
+            return true;
+        }
         //function to calculate the N value
         function calculateN() {
              p = parseInt(document.getElementById('p').value);
@@ -58,32 +69,44 @@
         //function to encrypt the M
         function Encrypt() {
             p=q=n=PiN=e=g=0;
-            calculateN();
-            calculatePiN();
-            if(findE()==1) {
-                var M = parseInt(document.getElementById('M').value);
-                
-                document.getElementById('EncryptL').innerHTML=Math.pow(M,e)%n;
+            if(isnum()==true){
+           
+                calculateN();
+                calculatePiN();
+                if(findE()==1) {
+                    var M = parseInt(document.getElementById('M').value);
+                    
+                    document.getElementById('EncryptL').innerHTML=Math.pow(M,e)%n;
+                } 
+            }else{
+                alert("Sorry Wrong Input")
             }
         }
+        
         //function to decrypt the C
         function Decrypt() {
             p=q=n=PiN=e=g=0;
-            calculateN();
-            calculatePiN();
-            Encrypt();
-            var d=1;
-            if(findE()==1) {
-                var C = parseInt(document.getElementById('C').value);
-                while ((e*d++)%PiN != 1);
-                d--;
-                var mult=1;
-                for (let i = 1; i <= d; i++) {
-                   mult = (mult * C)%n;
-                   console.log("i= "+i+" multi= "+mult);
-                    
+            if(isnum()==true){
+            
+                calculateN();
+                calculatePiN();
+                Encrypt();
+                var d=1;
+                if(findE()==1) {
+                    var C = parseInt(document.getElementById('C').value);
+                    while ((e*d++)%PiN != 1);
+                    d--;
+                    var mult=1;
+                    for (let i = 1; i <= d; i++) {
+                    mult = (mult * C)%n;
+                    console.log("i= "+i+" multi= "+mult);
+                        
+                    }
+                    document.getElementById('DecryptL').innerHTML=mult;
                 }
-                document.getElementById('DecryptL').innerHTML=mult;
+            }
+            else{
+                alert("Sorry Wrong Input")
             }
             
         }
@@ -95,17 +118,17 @@
             <tr><th>Label</th><th>Input</th><th>Label</th><th>Output</th></tr>
             <!-- input of p and the output n row -->
             <tr>
-                <th>P</th><td><input type="number" name="" id="p" placeholder="Enter p value"></td>
+                <th>P</th><td><input type="text" name="" id="p" placeholder="Enter p value"></td>
                 <th ><button onclick="calculateN()">N</button></th><td  id="nL"></td>
             </tr>
             <!-- input for q value -->
             <tr>
-                <th>Q</th><td><input type="number" name="" id="q" placeholder="Enter Q value"></td>
+                <th>Q</th><td><input type="text" name="" id="q" placeholder="Enter Q value"></td>
                 <th ><button onclick="calculatePiN()">Ø(N)</button></th><td  id="PiNL"></td>
             </tr>
             <!-- input for the e value -->
             <tr>
-                <th>e</th><td><input type="number" name="" id="e" placeholder="Enter e value"></td>
+                <th>e</th><td><input type="text" name="" id="e" placeholder="Enter e value"></td>
                 <th ><button onclick="findE()">e</button></th><td  id="eL"></td>
             </tr>
             <!-- input for the M value and encrypt-->
