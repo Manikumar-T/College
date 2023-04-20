@@ -40,7 +40,7 @@ public class AES {
         printbanner();
         System.out.println("Enter the Aadhar Numner: ");
         String number = sc.next();
-        if(number.length()==16)
+        if(number.length()==14)
             encryptDecrypt(number);
         else    
             System.out.println("Invalid Aadhar Numner");
