@@ -1,15 +1,9 @@
-Outlook,Temperature,Humidity,Wind,PlayGolf
-Sunny,Hot,High,Weak,No
-Sunny,Hot,High,Strong,No
-Overcast,Hot,High,Weak,Yes
-Rainy,Mild,High,Weak,Yes
-Rainy,Cool,Normal,Weak,Yes
-Rainy,Cool,Normal,Strong,No
-Overcast,Cool,Normal,Strong,Yes
-Sunny,Mild,High,Weak,No
-Sunny,Cool,Normal,Weak,Yes
-Rainy,Mild,Normal,Weak,Yes
-Sunny,Mild,Normal,Strong,Yes
-Overcast,Mild,High,Strong,Yes
-Overcast,Hot,Normal,Weak,Yes
-Rainy,Mild,High,Strong,No
+Milk,Egg,Bread,NaN,NaN, NaN, NaN
+NaN,Egg,NaN,Popcorn,Chips,Beer, NaN
+NaN,Egg,Bread,NaN,Chips, NaN, NaN
+Milk,Egg,Bread,Popcorn,Chips,Beer, NaN
+Milk,NaN,Bread,NaN,NaN,Beer, NaN
+NaN,Egg,Bread,NaN,NaN,Beer, NaN
+Milk,NaN,Bread,NaN,Chips, NaN, NaN
+Milk,Egg,Bread,NaN,Chips, NaN,Butter
+Milk,Egg,NaN,NaN,Chips, NaN,Butter
