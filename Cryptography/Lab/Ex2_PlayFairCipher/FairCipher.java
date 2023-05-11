@@ -53,7 +53,7 @@ public class FairCipher {
         String keymat[]= new String[5];
         String key="";
         int j=0;
-        //loop to itrate to 91 to add the alphabets with key to make key matrix
+        //loop to itrate 0 to 91 ([0 : length(orignal_key)] and [65 : 90]) to add the alphabets with key to make key matrix
         for (int i = 0; i <91 ; i++) {    
             if(i<Ori_key.length() && key.indexOf(Ori_key.charAt(i))==-1 ) {
                 if((Ori_key.charAt(i)=='I' ||  Ori_key.charAt(i)=='J') && (key.indexOf('I')>-1 || key.indexOf('J')>-1)) {
