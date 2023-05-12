@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Event_Details">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Details"
+            android:textSize="34sp"
+            android:translationX="140dp"
+            android:translationY="10dp" />
+
+        <TextView
+            android:id="@+id/name_lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="20sp"
+            android:translationX="150dp"
+            android:translationY="160dp" />
+
+        <TextView
+            android:id="@+id/reg_lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reg No"
+            android:textSize="20sp"
+            android:translationX="150dp"
+            android:translationY="230dp" />
+
+        <TextView
+            android:id="@+id/dept_lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dept"
+            android:textSize="20sp"
+            android:translationX="150dp"
+            android:translationY="280dp" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

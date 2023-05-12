@@ -24,20 +24,22 @@ public class MainActivity extends AppCompatActivity {
                 TextView password_view = findViewById(R.id.password);
                 String name = name_view.getText().toString();
                 String password = password_view.getText().toString();
-                if(name.equals("") ) {
-                    Toast.makeText(getBaseContext(),"Invalid name",Toast.LENGTH_LONG).show();
-                }
-                else if(password .equals("1234") ) {
-
-                    intent.putExtra("name",name);
-                    startActivity(intent);
-
-                }else{
-                    Toast.makeText(getBaseContext(),"invalid password ",Toast.LENGTH_LONG).show();
-                    name_view.setText("");
-                    password_view.setText("");
-
-                }
+                intent.putExtra("name",name);
+                startActivity(intent);
+//                if(name.equals("") ) {
+//                    Toast.makeText(getBaseContext(),"Invalid name",Toast.LENGTH_LONG).show();
+//                }
+//                else if(password .equals("1234") ) {
+//
+//                    intent.putExtra("name",name);
+//                    startActivity(intent);
+//
+//                }else{
+//                    Toast.makeText(getBaseContext(),"invalid password ",Toast.LENGTH_LONG).show();
+//                    name_view.setText("");
+//                    password_view.setText("");
+//
+//                }
             }
         });
 
