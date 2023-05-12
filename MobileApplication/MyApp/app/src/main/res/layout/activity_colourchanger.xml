@@ -20,8 +20,8 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="331dp"
-            android:layout_height="43dp"
+            android:layout_width="379dp"
+            android:layout_height="89dp"
             android:background="#00FFFFFF"
             android:text="Manikumar"
             android:textSize="24sp" />
@@ -33,5 +33,6 @@
             android:text="Change colour"
             android:translationX="220dp"
             android:translationY="120dp" />
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
