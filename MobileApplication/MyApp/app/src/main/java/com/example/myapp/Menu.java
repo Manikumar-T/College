@@ -20,11 +20,22 @@ public class Menu extends AppCompatActivity {
         TextView msg = findViewById(R.id.welcomemsg);
         msg.setText("Welcome "+name.toUpperCase(Locale.ROOT));
         Button colourchanger = findViewById(R.id.colour_changer);
+        Button EventListener = findViewById(R.id.EventListener);
+        Intent i = new Intent(this,colourchanger.class);
+        Intent Event_Intent = new Intent(this,Layout_Event.class);
         colourchanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                    startActivity(i);
             }
         });
+
+        EventListener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    startActivity(Event_Intent);
+            }
+        });
+
     }
 }
